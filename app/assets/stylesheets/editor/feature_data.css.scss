@@ -1,0 +1,112 @@
+// Feature data dialog content styles
+// --------------------------------------------------
+
+@import "../variables/colors";
+@import "../variables/sizes";
+
+.FeatureData .Dialog-header {
+  height: 245px;
+  min-height: 245px;
+  padding-top: 30px;
+  padding-bottom: 0;
+}
+
+.FeatureData .Dialog-headerTitle {
+  font-size: 16px;
+}
+
+.FeatureData .Dialog-headerText {
+  font-size: 14px;
+}
+
+.FeatureData-mapWrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 115px;
+  margin-top: 30px;
+}
+
+.FeatureData-mapContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.FeatureData-mapMamufas {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: content-box;
+  width: 100%;
+  border: 1px solid rgba(black, 0.1);
+  border-right: 0;
+  border-left: 0;
+  background: transparent;
+}
+
+.FeatureData-mapContainer .leaflet-control-attribution,
+.FeatureData-mapContainer .cartodb-gmaps-attribution {
+  display: none;
+}
+
+.FeatureData .Dialog-expandedSubContent {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: fixed;
+    z-index: 5;
+    left: 50%;
+    width: 620px;
+    height: 18px;
+    margin-left: -310px;
+  }
+
+  &::before {
+    top: 275px;
+    background-color: transparent !important;
+    background-image: linear-gradient(to bottom, rgba(#F9F9F9, 1), rgba(#F9F9F9, 0));
+  }
+
+  &::after {
+    bottom: 97px;
+    background-image: linear-gradient(to bottom, rgba(#F9F9F9, 0), rgba(#F9F9F9, 1));
+  }
+}
+
+.FeatureData .Dialog-stickyFooter {
+  z-index: 10;
+  left: 0;
+}
+
+.FeatureData-formContent,
+.FeatureData-formFooter {
+  width: 620px;
+  margin: 0 auto;
+}
+
+.FeatureData-formContent {
+  position: relative;
+  padding: 28px 0 120px;
+}
+
+.FeatureData-formFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F9F9F9;
+}
+
+.FeatureData-formFooter .Button {
+  margin: 0;
+}
+
+.FeatureData-loader {
+  display: none;
+}

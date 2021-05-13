@@ -1,0 +1,150 @@
+
+/**
+   *  Table header sync block
+   *
+   *  - Only sync header table/vis styles.
+   */
+
+@import "compass/css3/inline-block";
+@import "compass/css3/border-radius";
+@import "compass/css3/images";
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+@import "../../old_common/mixins";
+@import "../../old_common/vars";
+
+div.sync_info {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: auto;
+  padding: 0 0 8px 43px;
+
+  &.failure {
+    border-top: 1px solid rgba(black, 0.2);
+    background: image-url('layout/sync_error_bkg.png') repeat-x 0 0;
+  }
+
+  ul {
+
+    display: flex;
+    position: relative;
+    top: 0;
+    align-items: center;
+    justify-content: flex-start;
+    height: 20px;
+    margin-top: 0;
+
+    li {
+      position: relative;
+      margin: 0;
+      padding: 0 7px 0 0;
+
+      &.separator {
+        padding: 0 7px 0 10px;
+
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: 2px;
+          height: 2px;
+
+          border-radius: 3px;
+          background: #365C82;
+        }
+      }
+    }
+  }
+
+  div.circle {
+
+    display: inline-block;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    margin-top: 5px;
+    vertical-align: top;
+
+    span.point {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      margin: 0;
+      padding: 0;
+      border: 1px solid rgba(black, 0.5);
+      border-radius: 10px;
+      text-shadow: none;
+
+      @include background(linear-gradient(#C9FF26,#41B200));
+    }
+
+    span.pulse {
+      position: absolute;
+      z-index: 0;
+      top: -2px;
+      left: -2px;
+      width: 8px;
+      height: 8px;
+      animation: pulsate 1.5s ease-out infinite;
+      border: 3px solid #BBB;
+      border-radius: 20px;
+      opacity: 0;
+    }
+
+    &.syncing {
+      span.point {
+        @include background(linear-gradient(#FFFF73,#D9D900));
+        border-color: rgba(black, 0.75);
+      }
+    }
+
+    &.failure {
+      span.point {
+        @include background(linear-gradient(#FFFF4D,#D18400));
+        border-color: rgba(black, 0.75);
+      }
+    }
+  }
+
+  p {
+    color: white;
+    font-family: $text-fonts;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0;
+  }
+
+  .light { color: rgba(white, 0.35); }
+
+  a {
+    color: white;
+    font-size: 13px;
+    text-decoration: underline;
+  }
+}
+
+// Animation function
+@keyframes pulsate {
+  0% {
+    transform: scale(0.1, 0.1);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.4, 1.4);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,503 @@
+@import "compass/css3/box-sizing";
+@import "../old_common/vars";
+@import "../old_common/form-elements";
+
+.floating.edit_name_dialog.markdown {
+  height: 62px;
+
+  .input_field {
+    position: absolute;
+    top: 5px;
+    right: 65px;
+    bottom: 5px;
+    left: 5px;
+    width: 100%;
+    width: 289px;
+    margin: 0 3px 0 0;
+    padding: 8px 10px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    background: #FFF;
+    color: #333;
+    font-size: 15px;
+    line-height: normal;
+
+    .hint {
+      margin: 7px 0 0;
+      padding: 4px 3px 0 0;
+      border-top: 1px solid #CCC;
+      color: #CCC;
+      font-size: 12px;
+      text-align: right;
+
+      strong {
+        margin-right: 3px;
+      }
+
+      em {
+        margin-right: 3px;
+        font-style: italic;
+      }
+    }
+
+    input {
+      position: relative;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      box-sizing: border-box;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: none;
+    }
+  }
+
+  input,
+  textarea {
+    height: 19px;
+  }
+}
+
+.edit_text_dialog {
+  position: absolute !important;
+  z-index: 0 !important;
+  max-width: 500px;
+  max-height: 500px;
+  padding: 11px;
+  border: 1px solid #B7B7B7;
+  border-radius: 4px;
+  box-shadow: rgba(black, 0.17) 0 0 6px 1px;
+
+  @include background(linear-gradient(#FEFEFE, #F4F4F4));
+
+  a.button {
+    margin-top: 9px;
+    padding: 6px 15px !important;
+    letter-spacing: 0;
+  }
+
+  a.cancel {
+    margin-top: 13px;
+    font-size: 13px;
+    text-decoration: underline;
+    text-transform: lowercase;
+  }
+
+  a.cancel.right {
+    margin-top: 10px;
+    margin-bottom: 2px;
+  }
+
+  a.link {
+    margin-top: 19px;
+    margin-right: 3px;
+    font-size: 13px;
+    text-decoration: underline;
+    text-transform: lowercase;
+  }
+
+  input,
+  textarea {
+    display: block;
+    position: relative;
+
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 500px - 22;
+    max-height: 500px - 60;
+    margin: 0 !important;
+    padding: 10px;
+    border: 1px solid #C0C1C2;
+    border-radius: 4px;
+    background: #FFF;
+    color: #666;
+    font-family: $text-fonts;
+    font-size: 15px;
+
+    &:focus {
+      border-color: #999;
+      outline: none;
+    }
+  }
+
+  // Edit date dialog
+  div.field.date {
+    div.date_field {
+      display: table;
+      width: 281px;
+      letter-spacing: -4px;
+      word-spacing: -4px;
+
+      .select2-container {
+        width: 100px !important;
+      }
+
+      & > div.column {
+        display: inline-block;
+        margin-right: 4px;
+        letter-spacing: 0;
+        vertical-align: top;
+        word-spacing: 0;
+
+        label {
+          display: block;
+          margin: 0 0 3px;
+          padding: 0;
+          color: #DDD;
+          font: normal 12px $text-fonts;
+        }
+
+        div.form_spinner {
+          background: WHITE;
+
+          &.disabled {
+            border-color: #DDD !important;
+          }
+        }
+
+        &.day_field {
+          width: 46px;
+        }
+
+        &.month_field {
+          width: 101px;
+        }
+
+        &.year_field {
+          width: 54px;
+        }
+
+        &.time_field {
+          @include default-input();
+          width: 66px;
+
+          input {
+            width: 59px;
+            padding: 2px 3px;
+            border-color: #9E9E9E;
+            font-size: 13px;
+            // Actions
+            &.error {
+              border-color: rgba(red, 0.5);
+            }
+
+            &[readonly] {
+              border-color: #DDD;
+              background: #F4F4F4;
+            }
+          }
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
+    // .select2-container {width:100px !important;}
+
+    // form > div {
+    //   letter-spacing: -4px;
+    // }
+
+    // div.field {
+    //   display: inline-block;
+    vertical-align: top;
+    //   margin-right: 4px;
+    //   letter-spacing:0;
+
+    //   * {letter-spacing:0;}
+    //   label {display:block; margin:0 0 5px; font:bold 10px $text-fonts; color:#999999;}
+    //   div.form_spinner {
+    //     background: white;
+    //     &.disabled {border-color:#DDDDDD !important;}
+    //   }
+
+    //   &:last-child {margin-right:0;}
+    // }
+
+    // input.time {
+    //   width: 54px;
+    //   padding: 0 5px;
+    //   height: 19px;
+    //   font-size: 13px;
+    //   line-height: 19px;
+    //   border-color: #9E9E9E;
+    //   &.error {border-color:rgba(red,0.5);}
+    //   &[disabled] {border-color:#DDDDDD;}
+    // }
+  }
+
+  // Edit boolean dialog
+  div.field.boolean {
+    nav {
+      display: block;
+      min-width: 205px;
+      padding: 10px 5px 12px 20px;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      background: WHITE;
+
+      a {
+        display: inline-block;
+        width: 65px;
+        font-size: 13px;
+        font-weight: normal;
+        vertical-align: top;
+
+        span.radio {
+          margin-top: 0 !important;
+        }
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  // Edit number dialog
+  div.field.number {
+    input.error {
+      border-color: rgba(red, 0.5);
+    }
+  }
+
+  // Edit geometry dialog
+  div.field.geometry {
+    textarea.error,
+    input.error {
+      border-color: rgba(red, 0.5);
+    }
+
+    .selector {
+      display: none;
+      width: 100%;
+      margin-bottom: 7px;
+    }
+
+    .switches label {
+      color: #AAA;
+      font-size: 13px;
+    }
+
+    div.loader {
+      display: block;
+      width: 100%;
+      height: 50px;
+      background: image-url("layout/loader_gray.gif") no-repeat center center transparent;
+    }
+
+    div.rest {
+      display: none;
+    }
+
+    div.point {
+      display: none;
+      position: relative;
+      width: auto;
+      max-width: 322px;
+      height: 30px;
+      margin: 0;
+
+      & > span,
+      & > p {
+        display: inline-block;
+        position: relative;
+        margin: 0;
+        vertical-align: top;
+      }
+
+      input {
+        display: block;
+        width: 105px;
+        height: 31px;
+        margin: 0;
+        padding: 5px 5px 5px 36px;
+        font-size: 15px;
+        line-height: 19px;
+        text-align: right;
+
+        &.error {
+          border-color: rgba(red, 0.5);
+        }
+      }
+
+      p {
+        width: 17px;
+        font-size: 20px;
+        text-align: center;
+      }
+
+      label {
+        position: absolute;
+        z-index: 10;
+        top: 6px;
+        left: 8px;
+        color: #AAA;
+        font-size: 13px;
+        font-style: italic;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+}
+
+.floating.edit_name_dialog {
+  @include background(linear-gradient(rgba(black, 0.5), rgba(#212121, 0.5)));
+  min-width: 280px;
+  height: 37px;
+  padding: 5px;
+  border-radius: 4px;
+
+  box-shadow: rgba(#000, 0.12) 0 0 2px 2px;
+
+  .content {
+    display: inline-block;
+    float: left;
+    vertical-align: top;
+  }
+
+  input {
+    position: absolute;
+    top: 5px;
+    right: 65px;
+    bottom: 5px;
+    left: 5px;
+    margin: 0 3px 0 0;
+    padding: 8px 10px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    color: #333;
+    font-size: 15px;
+    line-height: normal;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  a.ok {
+    padding: 9px 15px !important;
+    border: 1px solid #000 !important;
+    border-radius: 4px;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    letter-spacing: 0;
+
+    &:active {
+      @include background(linear-gradient(#F9F9F9, #E1E1E1));
+      border-color: #ACACAC;
+      background: #D3D3D3; // IE
+      box-shadow: rgba(#FFF, 0) 0 0 1px 0, rgba(130, 126, 111, 0.6) 0 1px 3px 0 inset;
+    }
+  }
+
+  &.tags-dialog {
+    height: auto;
+
+    ul {
+      display: inline-block;
+      position: relative;
+      min-width: 215px;
+      max-width: 400px;
+      min-height: 24px;
+      max-height: 300px !important;
+      margin: 0 3px 0 0;
+      padding: 4px 4px 1px;
+      border: 1px solid #000;
+
+      border-radius: 4px;
+      background: WHITE;
+      vertical-align: top;
+
+      li.tagit-choice {
+        margin: 0 3px 3px 0;
+        padding: 0;
+        border: 1px solid #2B5B85;
+        border-radius: 3px;
+        background: #4086C3;
+        color: #FFF;
+        font: normal 11px "Arial";
+
+        span.tagit-label {
+          display: inline-block;
+          padding: 0 5px;
+          border-right: 1px solid #2B5B85;
+          line-height: 19px;
+          vertical-align: top;
+        }
+
+        a.tagit-close {
+          display: inline-block;
+          position: relative;
+          width: auto;
+          height: 100%;
+          margin: 0;
+          line-height: 19px;
+          vertical-align: top;
+
+          &:hover {
+            text-decoration: none;
+
+            span.text-icon {
+              color: WHITE;
+            }
+          }
+
+          span.text-icon {
+            display: block;
+            margin: 0;
+            padding: 0 5px 0 7px;
+            color: #1F4362;
+            line-height: 19px;
+          }
+        }
+      }
+
+      li.tagit-new {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0;
+
+        input {
+          display: inline-block;
+          position: relative;
+          top: 0;
+          right: auto;
+          bottom: auto;
+          left: auto;
+          margin: 3px 0 3px 5px;
+          padding: 0;
+          font-size: 13px;
+          line-height: 15px;
+          vertical-align: top;
+        }
+      }
+    }
+
+    a.ok {
+      padding: 6px 15px !important;
+      border: 1px solid #000 !important;
+      border-radius: 4px;
+      font-size: 15px !important;
+      font-weight: bold !important;
+      letter-spacing: 0;
+
+      &:active {
+        @include background(linear-gradient(#F9F9F9, #E1E1E1));
+        border-color: #ACACAC;
+        background: #D3D3D3; // IE
+        box-shadow: rgba(#FFF, 0) 0 0 1px 0, rgba(130, 126, 111, 0.6) 0 1px 3px 0 inset;
+      }
+    }
+  }
+}

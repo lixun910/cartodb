@@ -1,0 +1,58 @@
+
+/**
+   *  Styles for help tip situtated in the top of a module.
+   *  Ex: infowindow html editor, sql panel, cartocss panel,...
+   */
+
+@import "compass/css3/images";
+@import "../old_common/vars";
+@import "../old_common/mixins";
+@import "../old_common/common-sprite";
+@import "../table/table-sprite";
+
+.help-tip {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid rgba(#DDD, 0.5);
+  background: #F5F8FF;
+  color: #999;
+  font-size: 13px;
+  font-style: italic;
+
+  p {
+    padding: 0 25px 0 44px;
+  }
+
+  .close {
+    @include background(sprite($common-sprites, close_grey, $offset-x: 0, $offset-y: 0) no-repeat);
+    display: block;
+    position: absolute;
+    top: 12px;
+    right: 27px;
+    width: 13px;
+    height: 13px;
+    vertical-align: middle;
+
+    &:hover {
+      @include background(sprite($common-sprites, close_grey, $offset-x: 0, $offset-y: -13px) no-repeat);
+    }
+
+    &:active {
+      @include background(sprite($common-sprites, close_grey, $offset-x: 0, $offset-y: -26px) no-repeat);
+    }
+  }
+
+  &::before {
+    @include size(10px, 6px);
+    @include position(-6px, 29px, false, false);
+    @include background(sprite($table-sprites, infowindow_panel_purple_tip) no-repeat);
+    content: '';
+    z-index: 11;
+  }
+}

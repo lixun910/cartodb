@@ -1,0 +1,157 @@
+SET
+CREATE FUNCTION
+SELECT 1
+ERROR:  Please set user quota before cartodbfying tables.
+0
+single non-geometrical column cartodbfied fine
+DROP TABLE
+SELECT 1
+check function idempotence cartodbfied fine
+1|0101000020E6100000000000000000F0BF000000000000F0BF|0101000020110F0000DB0B4ADA772DFBC077432E49D22DFBC0|this is a sentence
+check function idempotence cartodbfied fine
+1|0101000020E6100000000000000000F0BF000000000000F0BF|0101000020110F0000DB0B4ADA772DFBC077432E49D22DFBC0|this is a sentence
+DROP TABLE
+SELECT 1
+srid-unconstrained the_geom cartodbfied fine
+DROP TABLE
+SELECT 2
+mixed-srid the_geom cartodbfied fine
+extent|BOX(-1 -1,0 0)
+DROP TABLE
+SELECT 1
+wrong srid-constrained the_geom cartodbfied fine
+extent|BOX(1 1,2 2)|BOX(111319 111325,222639 222684)
+DROP TABLE
+SELECT 1
+wrong srid-constrained the_geom_webmercator cartodbfied fine
+extent|BOX(1 1,2 2)
+DROP TABLE
+SELECT 1
+CREATE TRIGGER
+trigger-protected the_geom cartodbfied fine
+extent|BOX(1 1,2 2)
+DROP TABLE
+SELECT 1
+text cartodb_id cartodbfied fine
+5
+DROP TABLE
+SELECT 1
+ERROR:  CDB(_CDB_Has_Usable_Primary_ID: Error: invalid cartodb_id, cartodb_id): ALTER TABLE t ADD CONSTRAINT cartodb_id_pk PRIMARY KEY (cartodb_id), ADD CONSTRAINT cartodb_id_integer CHECK (cartodb_id::integer >=0);
+DROP TABLE
+SELECT 1
+ERROR:  CDB(_CDB_Has_Usable_Primary_ID: Error: invalid cartodb_id, cartodb_id): ALTER TABLE t ADD CONSTRAINT cartodb_id_pk PRIMARY KEY (cartodb_id), ADD CONSTRAINT cartodb_id_integer CHECK (cartodb_id::integer >=0);
+
+DROP TABLE
+SELECT 1
+unsequenced cartodb_id cartodbfied fine
+1
+DROP TABLE
+SELECT 1
+text the_geom column cartodbfied fine
+1
+DROP TABLE
+SELECT 1
+text the_geom column, no srs cartodbfied fine
+1
+DROP TABLE
+SELECT 1
+text the_geom column, srs = 26819 cartodbfied fine
+1
+DROP TABLE
+SELECT 1
+text the_geom column, unparseable content cartodbfied fine
+1
+DROP TABLE
+CREATE TABLE
+cartodb_id serial primary key cartodbfied fine
+t_pkey|cartodb_id
+DROP TABLE
+CREATE TABLE
+original
+ALTER TABLE
+CREATE TABLE
+original
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+Table always have a default seq value after cartodbfy #138 cartodbfied fine
+INSERT 0 1
+DROP TABLE
+CREATE TABLE
+INSERT 0 3
+Existing cartodb_id values are respected #138 cartodbfied fine
+10|||a|
+20|||b|
+30|||c|
+DROP TABLE
+CREATE TABLE
+INSERT 0 2
+Table with both the_geom and wkb_geometry #141 cartodbfied fine
+1|0104000020E61000000100000001010000007108B023698052C03CEEA53A2E5D4440|0104000020110F00000100000001010000004A9F662B456D5FC11392690DC3F75241|
+2|0104000020E6100000010000000101000000864C9E57618052C0994F0C7F3C5B4440|0104000020110F00000100000001010000002858E0EC376D5FC1CAE8DB4B95F55241|
+DROP TABLE
+CREATE TABLE
+INSERT 0 1
+ERROR:  CDB(_CDB_Has_Usable_Primary_ID: multiple primary keys for table "many_colliding_columns" are not allowed): ALTER TABLE many_colliding_columns ADD CONSTRAINT cartodb_id_pk PRIMARY KEY (cartodb_id), ADD CONSTRAINT cartodb_id_integer CHECK (cartodb_id::integer >=0);
+DROP TABLE
+CREATE TABLE
+INSERT 0 4
+ERROR:  CDB(_CDB_Has_Usable_Primary_ID: Error: invalid cartodb_id, cartodb_id): ALTER TABLE test ADD CONSTRAINT cartodb_id_pk PRIMARY KEY (cartodb_id), ADD CONSTRAINT cartodb_id_integer CHECK (cartodb_id::integer >=0);
+1
+2
+
+3
+DROP TABLE
+CREATE TABLE
+INSERT 0 3
+ERROR:  CDB(_CDB_Has_Usable_Primary_ID: Error: invalid cartodb_id, cartodb_id): ALTER TABLE test ADD CONSTRAINT cartodb_id_pk PRIMARY KEY (cartodb_id), ADD CONSTRAINT cartodb_id_integer CHECK (cartodb_id::integer >=0);
+1
+2
+2
+DROP TABLE
+CREATE TABLE
+INSERT 0 4
+ERROR:  CDB(_CDB_Has_Usable_Primary_ID: Error: invalid cartodb_id, cartodb_id): ALTER TABLE test ADD CONSTRAINT cartodb_id_pk PRIMARY KEY (cartodb_id), ADD CONSTRAINT cartodb_id_integer CHECK (cartodb_id::integer >=0);
+1
+2
+
+2
+DROP TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+ALTER TABLE
+INSERT 0 3
+Table with primary key and unique index on it #174 cartodbfied fine
+1
+2
+3
+DROP TABLE
+CREATE TABLE
+INSERT 0 2
+Table with dots in name columns (cartodb #6114) cartodbfied fine
+one|1
+two|3
+DROP TABLE
+SET
+CREATE TABLE
+NOTICE:  Column cartodb_id already exists
+NOTICE:  Existing cartodb_id field does not have an associated sequence, renaming
+NOTICE:  Trying to recover data from _cartodb_id0 column
+
+DROP TABLE
+CREATE TABLE
+NOTICE:  Column cartodb_id already exists
+NOTICE:  Existing cartodb_id field is of invalid type text (need int2, int4 or int8), renaming
+NOTICE:  Trying to recover data from _cartodb_id0 column
+
+DROP TABLE
+SET
+BEGIN
+DO
+ROLLBACK
+CREATE TABLE
+Long table name could cause sequence collision while renaming #325 cartodbfied fine
+DROP TABLE
+DROP FUNCTION
+DROP FUNCTION

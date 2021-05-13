@@ -1,0 +1,18 @@
+<script>
+  window._trackJs = {
+    enabled: <%= enabled ? 'true' : 'false' %>,
+    application: '<%= app_key %>',
+    version: '<%= version %>'
+    <% if current_user.present? %>
+      ,userId: '<%= current_user.username %>'
+    <% end %>
+    <% if is_embed %>
+      ,callback: { enabled: false },
+      console: { enabled: false, display: false },
+      network: { enabled: true },
+      window: { enabled: false },
+      visitor: { enabled: false }
+    <% end %>
+  };
+</script>
+<script type="text/javascript" src="//d2zah9y47r7bi2.cloudfront.net/releases/current/tracker.js" data-token="<%= customer %>"></script>

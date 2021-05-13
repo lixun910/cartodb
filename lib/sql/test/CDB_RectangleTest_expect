@@ -1,0 +1,3 @@
+SET
+10000
+ERROR:  The requested grid is too big to be rendered

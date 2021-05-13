@@ -1,0 +1,11 @@
+<% if current_user.trial_user? %>
+  <div class="CDB-Text FlashMessage FlashMessage--main">
+    <div class="u-inner">
+      <div class="FlashMessage FlashMessage-info FlashMessage--main u-flex u-justifyCenter u-alignCenter">
+        <p class="FlashMessage--text"><%= current_user.remaining_trial_days %> days left in your trial.
+          <a href="<%= current_user.upgrade_url(request.protocol) %>" class="FlashMessage--text">Subscribe now to keep using our platform.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

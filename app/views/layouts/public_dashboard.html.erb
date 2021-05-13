@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= favicon_link_tag "favicons/favicon.ico" %>
+    <title><%= yield :title %></title>
+    <meta name="description" content="<%= yield :description %>">
+    <meta name="keywords" content="<%= @name %>, datasets, maps, data visualization, spatial data, geospatial, carto">
+    <meta name="author" content="<%= @name %>">
+    <meta charset='utf-8' />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+    <meta property="og:title" content="<%= yield :title %>" />
+    <meta property="og:description" content="<%= yield :description %>" />
+    <meta property="og:type" content="visualization" />
+    <meta property="og:url" content="<%= request.original_url %>" />
+    <meta property="og:image" content="<%= @avatar_url %>" />
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@CARTO">
+    <meta name="twitter:creator" content="@CARTO">
+    <meta name="twitter:title" content="<%= yield :title %>">
+    <meta name="twitter:description" content="<%= yield :description %>">
+    <meta name="twitter:image" content="<%= @avatar_url %>">
+    <meta name="twitter:url" content="<%= request.original_url %>" />
+
+    <% if @has_new_dashboard %>
+      <%= stylesheet_link_tag 'deep_insights_new', 'common_new', 'public_dashboard_new' %>
+    <% else %>
+      <%= editor_stylesheet_link_tag 'cartodb', 'deep_insights', 'common', 'public_dashboard' %>
+    <% end %>
+
+    <%= insert_google_tag_manager('embeds') %>
+  </head>
+  <body class="PublicBody PublicBody--grey">
+    <%= insert_google_tag_manager_no_script('embeds') %>
+    <%= render 'admin/shared/public_header' %>
+    <div class="FavMap is-pre-loading" id="<%= fav_map_target_id = 'fav-map-container' %>">
+      <div class="Spinner FavMap-spinner js-spinner"></div>
+    </div>
+
+    <% if @is_org %>
+      <%= render "shared/public_dashboard_org_header" %>
+    <% else %>
+      <%= render "shared/public_dashboard_user_header" %>
+    <% end %>
+
+    <%= yield %>
+
+    <%= render 'admin/shared/footer', { light: true } %>
+    <%= insert_trackjs('embeds') %>
+    <script type="text/javascript">
+      var config = <%= safe_js_object frontend_config_public({https_apis: request.protocol == 'https://' }) %>;
+      var account_host = '<%= CartoDB.account_host %>';
+      var base_url = '<%= @base_url %>';
+      var login_url = "<%= CartoDB.url(self, 'login') %>";
+
+      var favMapViewAttrs = {
+        fallbackBaselayer: <%= raw @default_fallback_basemap.to_json %>,
+        el: '#<%= fav_map_target_id %>',
+        <% if @most_viewed_vis_map %>
+          createVis: {
+            <% if @has_new_dashboard %>
+              vizJson: <%= safe_js_object named_map_vizjson3(@most_viewed_vis_map).to_json %>,
+            <% else %>
+              url: '<%= vis_json_url(@most_viewed_vis_map.id, self, (@most_viewed_vis_map.user)) %>',
+            <% end %>
+            opts: {
+              no_cdn: <%= Rails.env.production? ? 'false' : 'true' %>
+            }
+          }
+        <% end %>
+      };
+    </script>
+    <% if @needs_gmaps_lib %>
+      <%= insert_google_maps(@gmaps_query_string) %>
+    <% end %>
+
+    <% if @has_new_dashboard %>
+      <%= javascript_include_tag 'common', 'common_vendor', 'public_dashboard_new' %>
+    <% else %>
+      <%= editor_javascript_include_tag 'cdb.js', 'templates', 'public_dashboard_deps', 'public_dashboard' %>
+    <% end %>
+    <%= yield :js %>
+  </body>
+</html>

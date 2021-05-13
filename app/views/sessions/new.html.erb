@@ -1,0 +1,100 @@
+<% if @organization %>
+  <% content_for :title do %><%= @organization.name %><% end %>
+<% end %>
+
+<% content_for :js do %>
+  <%= javascript_include_tag 'common', 'common_vendor', 'sessions' %>
+<% end %>
+
+<div class="CDB-Text <%= @organization.present? ? 'Sessions' : 'Sessions-navy' %>" style="<%= @organization.present? ? background : '' %>">
+  <div class="Sessions-content">
+    <div class="Sessions-inner">
+      <div class="Sessions-notloggedin is-active">
+        <div class="u-inner">
+          <div class="Sessions-left">
+            <div class="Sessions-logoContainer">
+              <%= render :partial => 'shared/logo', locals: { organization: @organization } %>
+            </div>
+
+            <div class="Sessions-form">
+              <%= form_tag CartoDB.url(self, 'create_session', keep_base_url: true), class: "js-Loading-form" do %>
+
+                <% if @flash_login_error %>
+                  <p class="CDB-Text CDB-Size-huge u-altTextColor u-tSpace--m u-justifyCenter Sessions-description" style="background: #f24440; border-radius: 4px; padding: 5px; color: #fff;">
+                    <%= raw @flash_login_error %>
+                  </p>
+                <% end %>
+
+                <% if @organization.nil? || @organization.auth_username_password_enabled %>
+                  <div class="Sessions-field">
+                    <%= text_field_tag :email, CartoDB.extract_subdomain(request), :title => "Email or username", placeholder: "email or username", class: "CDB-Size-medium #{@organization.present? ? 'Sessions-input' : 'Sessions-navy-input'} topBorderRadius", autofocus: true %>
+
+                    <% if @login_error %>
+                      <div class="Sessions-fieldError js-Sessions-fieldError" data-content="<%= @login_error %>">!</div>
+                    <% end %>
+                  </div>
+
+                  <div class="Sessions-field">
+                    <%= password_field_tag :password, "", placeholder: "password", class: "CDB-Size-medium #{@organization.present? ? 'Sessions-input' : 'Sessions-navy-input'} bottomBorderRadius" %>
+
+                    <% if @login_error %>
+                      <div class="Sessions-fieldError js-Sessions-fieldError" data-content="<%= @login_error %>">!</div>
+                    <% end %>
+
+                    <div class="Sessions-inputLinkAside">
+                      <%= link_to 'Forgot?', forget_password_url(organization_name: @organization.try(:name)) %>
+                    </div>
+                  </div>
+
+                  <div class="Sessions-field">
+                    <p>
+                      <button type="submit" class="Sessions-submitButton js-Sessions-button js-Loading">
+                        <span class="js-Loading-text">Log in</span>
+                        <%= render :partial => 'shared/loading_animation' %>
+                      </button>
+                    </p>
+                  </div>
+
+                <% end %>
+              <% end %>
+              <% if @oauth_configs.any? %>
+                <div class="Sessions-field Sessions-oauthHeader">
+                  <p>OR LOG IN WITH:</p>
+                </div>
+                <div class="Sessions-field Sessions-oauthContainer">
+                  <% @oauth_configs.each do |config| %>
+                    <%= render partial: config.button_template, locals: { config: config } %>
+                  <% end %>
+                </div>
+              <% end %>
+
+              <% if @user_login_url %>
+                <p class="CDB-Text CDB-Size-medium u-altTextColor u-tSpace--m u-justifyCenter Sessions-description">
+                  Not a member of the <%= @organization.name %> organization? Try the <a href="<%= @user_login_url %>"> general login</a> instead.
+                </p>
+              <% elsif @organization.try(:auth_username_password_enabled) %>
+                <p class="CDB-Text CDB-Size-medium u-altTextColor u-tSpace--m u-justifyCenter Sessions-description">
+                  Please, remember to use an email address belonging to this organization to login to your account.
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="Sessions-loggedin">
+        <div class="Spinner"></div>
+      </div>
+    </div>
+  </div>
+
+  <% if organization_signup_url.present? && !cartodb_com_hosted? %>
+    <footer class="Sessions-footer">
+      <div class="u-inner">
+        <div class="Sessions-notloggedin is-active">
+          <p class="Sessions-text Sessions-text--footer u-txt-center u-altTextColor">Don't have an account yet? <%= link_to 'Sign up here', organization_signup_url %></p>
+        </div>
+      </div>
+    </footer>
+  <% end %>
+</div>

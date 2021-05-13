@@ -1,0 +1,20 @@
+
+
+WARNING:  Invalidation service configuration not found. Skipping Ghost Tables linking.
+NOTICE:  _CDB_LinkGhostTables() called with username=fulanito, event_name=USER
+
+
+WARNING:  Error calling Invalidation Service to link Ghost Tables: Error -2 connecting fake-tis-host:3142. Name or service not known.
+NOTICE:  _CDB_LinkGhostTables() called with username=fulanito, event_name=USER
+
+BEGIN
+cdb_ddl_execution
+0
+CREATE TABLE
+1
+WARNING:  Error calling Invalidation Service to link Ghost Tables: Error -2 connecting fake-tis-host:3142. Name or service not known.
+NOTICE:  _CDB_LinkGhostTables() called with username=fulanito, event_name=CREATE TABLE
+COMMIT
+
+
+DROP TABLE

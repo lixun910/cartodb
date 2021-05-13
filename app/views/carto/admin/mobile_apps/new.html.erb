@@ -1,0 +1,49 @@
+<% content_for(:page_title) do %>
+  New mobile application |
+<% end %>
+<%= content_for(:js) do %>
+  <script type="text/javascript">
+    var config = <%= safe_js_object frontend_config %>;
+    var user_data = <%= safe_js_object current_user.data.to_json %>;
+    var mobile_app_data = <%= safe_js_object @mobile_app.data(current_user, fetch_mobile_platforms: true).to_json %>;
+    var icon_valid_extensions = <%= raw @icon_valid_extensions %>;
+    var organization_notifications = <%= safe_js_object @organization_notifications.to_json %>;
+  </script>
+
+  <%= javascript_include_tag 'common', 'common_vendor', 'mobile_apps' %>
+<% end %>
+
+<%= render :partial => 'shared/flash_message' %>
+<%= render :partial => 'admin/shared/trial_notification' %>
+
+<div class="FormAccount-Section u-inner">
+  <%= render :partial => 'admin/shared/pages_subheader' %>
+
+  <div class="CDB-Text FormAccount-Content">
+
+    <div class="Filters is-relative Filters__margin-fix">
+      <div class="Filters-inner">
+        <span class="Filters-separator"></span>
+        <div class="Filters-row">
+          <ul class="Filters-group">
+            <li class="u-flex u-alignCenter">
+              <a href="<%= current_user_url('mobile_apps') %>" class="u-actionTextColor u-flex u-alignCenter Filters-typeLink">
+                <i class="CDB-IconFont CDB-IconFont-arrowPrev u-rSpace--xl"></i>
+              </a>
+            </li>
+            <li class="Filters-typeItem">
+              <div class="u-iblock">
+                <p class="CDB-Text CDB-Size-medium is-semibold u-mainTextColor">New application</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <%= render :partial => 'carto/admin/mobile_apps/form' %>
+  </div>
+
+</div>
+
+<%= render 'admin/shared/new_private_footer' %>

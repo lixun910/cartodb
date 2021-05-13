@@ -1,0 +1,7 @@
+{
+  "testsFolder": [
+    "lib/assets/test/spec/builder/",
+    "lib/assets/test/spec/deep-insights"
+  ],
+  "filesRegex": "spec\\.js$"
+}
